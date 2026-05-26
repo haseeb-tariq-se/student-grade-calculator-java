@@ -1,0 +1,50 @@
+import java.util.Scanner;
+public class DecodeLabsProject2 {
+    static String assigngrade(double average) {
+        String grade;
+        if(average >= 90) {
+            grade = "A";
+        } else if(average >= 80) {
+            grade = "B";
+        } else if(average >= 70) {
+            grade = "C";
+        } else if(average >= 60) {
+            grade = "D";
+        } else {
+            grade = "F";
+        }
+        return grade;
+    }
+    static int getvalidmark(Scanner sc, int subjectNumber) {
+        int mark;
+        while(true) {
+            System.out.print("Enter marks for Subject " + subjectNumber + " (0-100): ");
+            mark = Integer.parseInt(sc.nextLine());
+            if(mark >= 0 && mark <= 100) {
+                break;
+            }
+            System.out.println("Invalid. Marks must be between 0 and 100. Try again.");
+        }
+        return mark;
+    }
+    static void printreport(int total, double average, String grade, int numSubjects) {
+        System.out.println("\n========= RESULT =========");
+        System.out.println("Total Marks  : " + total + " / " + (numSubjects * 100));
+        System.out.printf("Average      : %.2f%%%n", average);
+        System.out.println("Grade        : " + grade);
+        System.out.println("==========================");
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of subjects: ");
+        int numSubjects = Integer.parseInt(sc.nextLine());
+        int total = 0;
+        for(int i = 1; i <= numSubjects; i++) {
+            int mark = getvalidmark(sc, i);
+            total += mark;
+        }
+        double average = (double) total / numSubjects;
+        String grade = assigngrade(average);
+        printreport(total, average, grade, numSubjects);
+    }
+}
